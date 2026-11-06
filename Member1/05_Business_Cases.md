@@ -125,3 +125,148 @@ The following five cases define the expected system behaviour during normal book
 These five business cases establish how the PS-07 AI-Powered Online Ticketing and Booking Assistant should behave during successful bookings, unavailable inventory, concurrent reservations, payment failures and duplicate requests.
 
 They provide the foundation for backend implementation, frontend integration and end-to-end system testing.
+
+---
+
+# M3 – Pricing and Business Logic Cases
+
+## Introduction
+
+These five business cases demonstrate the pricing calculations used by the AI-Powered Online Ticketing and Booking Assistant.
+
+### Common Pricing Rules
+
+| Component | Value |
+|---|---:|
+| General Admission | ₹999 |
+| Premium | ₹1,999 |
+| VIP | ₹2,999 |
+| Early Bird | 0.8x |
+| Regular Booking | 1.0x |
+| Last-Minute | 1.2x |
+| WELCOME10 | 10% |
+| FEST20 | 20% |
+| STUDENT15 | 15% |
+| Booking Fee | ₹30 per ticket |
+| Tax | 18% |
+
+**Calculation assumption:** Tax applies to the discounted ticket amount plus booking fee. This assumption requires team approval.
+
+## M3 Business Case 1: Normal Ticket Booking
+
+**Scenario:** A customer purchases one General Admission ticket without a promotional code.
+
+- Base price: ₹999
+- Quantity: 1
+- Tier: Regular (1.0x)
+- Adjusted price: ₹999
+- Discount: ₹0
+- Booking fee: ₹30
+
+Calculation:
+
+- Taxable amount = ₹999 + ₹30 = ₹1,029
+- Tax = ₹1,029 × 18% = ₹185.22
+- **Final amount = ₹1,214.22**
+
+**Expected Result:** The customer receives the correct final booking amount.
+
+## M3 Business Case 2: Early Bird Booking with WELCOME10
+
+**Scenario:** A customer purchases two Premium tickets using the WELCOME10 code.
+
+- Base price per ticket: ₹1,999
+- Quantity: 2
+- Tier: Early Bird (0.8x)
+- Adjusted total: ₹3,198.40
+- Discount: 10% = ₹319.84
+- Booking fee: ₹60
+
+Calculation:
+
+- Taxable amount = ₹3,198.40 - ₹319.84 + ₹60 = ₹2,938.56
+- Tax = ₹2,938.56 × 18% = ₹528.94
+- **Final amount = ₹3,467.50**
+
+**Expected Result:** The system applies the Early Bird multiplier and valid promotional discount.
+
+## M3 Business Case 3: Last-Minute VIP Booking with FEST20
+
+**Scenario:** A customer purchases one VIP ticket using FEST20.
+
+- Base price: ₹2,999
+- Quantity: 1
+- Tier: Last-Minute (1.2x)
+- Adjusted price: ₹3,598.80
+- Discount: 20% = ₹719.76
+- Booking fee: ₹30
+
+Calculation:
+
+- Taxable amount = ₹3,598.80 - ₹719.76 + ₹30 = ₹2,909.04
+- Tax = ₹2,909.04 × 18% = ₹523.63
+- **Final amount = ₹3,432.67**
+
+**Expected Result:** The system correctly calculates the Last-Minute price and FEST20 discount.
+
+## M3 Business Case 4: Invalid Promotional Code
+
+**Scenario:** A customer enters an invalid promotional code while purchasing one Premium ticket.
+
+- Base price: ₹1,999
+- Quantity: 1
+- Tier: Regular (1.0x)
+- Entered code: INVALID50
+- Promo status: Rejected
+- Discount: ₹0
+- Booking fee: ₹30
+
+Calculation:
+
+- Taxable amount = ₹1,999 + ₹30 = ₹2,029
+- Tax = ₹2,029 × 18% = ₹365.22
+- **Final amount = ₹2,394.22**
+
+**Expected Result:** The invalid code is rejected and no discount is applied. The customer can continue without the discount.
+
+## M3 Business Case 5: Multiple Student Tickets with STUDENT15
+
+**Scenario:** A verified student purchases three General Admission tickets using STUDENT15.
+
+- Base price per ticket: ₹999
+- Quantity: 3
+- Tier: Regular (1.0x)
+- Adjusted total: ₹2,997
+- Discount: 15% = ₹449.55
+- Booking fee: ₹90
+
+Calculation:
+
+- Taxable amount = ₹2,997 - ₹449.55 + ₹90 = ₹2,637.45
+- Tax = ₹2,637.45 × 18% = ₹474.74
+- **Final amount = ₹3,112.19**
+
+**Expected Result:** The system verifies student eligibility and applies the discount to the eligible ticket amount.
+
+## M3 Business Case Summary
+
+| Case | Scenario | Final Amount |
+|---|---|---:|
+| 1 | Normal booking | ₹1,214.22 |
+| 2 | Early Bird + WELCOME10 | ₹3,467.50 |
+| 3 | Last-Minute VIP + FEST20 | ₹3,432.67 |
+| 4 | Invalid promo code | ₹2,394.22 |
+| 5 | Multiple student tickets | ₹3,112.19 |
+
+## Verification Notes
+
+- All five examples use the proposed pricing formula.
+- All five calculations have been checked mathematically.
+- Promotional discounts are applied before tax.
+- Booking fees are charged per ticket.
+- Invalid promotional codes do not reduce the booking amount.
+- Tax and fee treatment, promo eligibility and pricing rules require team approval.
+
+**Status:** Proposed business cases – pending team approval.
+
+**Prepared by:** Member 1 – Product Owner
