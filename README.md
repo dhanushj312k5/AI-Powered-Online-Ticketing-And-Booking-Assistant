@@ -6,9 +6,10 @@ A collaborative project to develop an AI-powered online ticketing and booking as
 
 ## Team Members
 
-- Dhanush
-- Team Member 2
-- Team Member 3
+- Dhanush J
+- Ramprasad M N
+- Nikil S Gowda
+- Adithya K M
 
 ## Technologies Used
 
@@ -18,5 +19,3 @@ A collaborative project to develop an AI-powered online ticketing and booking as
 - JavaScript
 
 ## Project Status
-
-Development in progress.
