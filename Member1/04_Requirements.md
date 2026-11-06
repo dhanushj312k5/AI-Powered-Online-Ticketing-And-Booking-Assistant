@@ -1,119 +1,258 @@
-# PS-07: Functional and Non-Functional Requirements
+# USER STORIES AND ACCEPTANCE CRITERIA
+## AI-Powered Online Ticketing and Booking Assistant
 
-## 1. Introduction
+### 1. Introduction
 
-This document defines the functional and non-functional requirements of the AI-Powered Online Ticketing and Booking Assistant.
+This document defines the user stories, acceptance criteria, seat-selection rules, booking process, checkout flow, and expected API behavior for the AI-Powered Online Ticketing and Booking Assistant.
 
-It serves as a reference for frontend development, backend implementation, integration and testing.
+The objective is to provide users with a simple, secure, and efficient ticket-booking experience.
 
-## 2. Functional Requirements
+---
 
-Functional requirements describe the operations and services that the application must provide.
+### 2. User Stories
 
-### FR-01: User Interaction
-The system shall allow customers to interact with the AI assistant through a conversational text interface.
+#### US-01: Search for Events
+**As a user**, I want to search for available events, movies, or travel tickets so that I can find suitable booking options.
 
-### FR-02: AI Intent Recognition
-The AI assistant shall identify customer booking requests and understand their requirements.
+**Acceptance Criteria:**
+- User can enter an event, movie, or destination name.
+- System displays matching results.
+- Results show date, time, location, and ticket price.
+- If no results are found, the system displays an appropriate message.
 
-### FR-03: Ticket Discovery
-The system shall search and display relevant ticket options based on customer requests.
+#### US-02: View Ticket Details
+**As a user**, I want to view ticket details so that I can make an informed booking decision.
 
-### FR-04: Availability Checking
-The system shall check ticket and slot availability before allowing a reservation.
+**Acceptance Criteria:**
+- Display event or service name.
+- Display available dates and timings.
+- Display venue or location.
+- Display ticket categories and prices.
+- Display availability status.
 
-### FR-05: Ticket Selection
-The system shall allow customers to select tickets and specify the required quantity.
+#### US-03: Select Seats
+**As a user**, I want to select my preferred seats so that I can enjoy a comfortable experience.
 
-### FR-06: Booking Management
-The system shall collect necessary customer details and create booking requests.
+**Acceptance Criteria:**
+- Display a visual seating layout.
+- Available seats must be selectable.
+- Booked seats must be disabled.
+- Selected seats must be highlighted.
+- User can select multiple seats if permitted.
+- System must prevent duplicate seat bookings.
+- Total ticket price must update automatically.
 
-### FR-07: Inventory Locking
-The backend shall use atomic reservation and locking mechanisms to prevent overbooking during concurrent booking requests.
+#### US-04: Enter Booking Details
+**As a user**, I want to provide my booking details so that tickets can be registered in my name.
 
-### FR-08: Duplicate Booking Prevention
-The system shall identify duplicate booking submissions and prevent unintended duplicate reservations.
+**Acceptance Criteria:**
+- User must provide required personal details.
+- Mandatory fields must be validated.
+- Invalid information must display an error.
+- User must review booking details before checkout.
 
-### FR-09: Payment Processing
-The system shall integrate with a payment gateway sandbox and handle successful and failed payment responses.
+#### US-05: Checkout and Payment
+**As a user**, I want to complete payment securely so that I can confirm my ticket booking.
 
-### FR-10: Booking Confirmation
-The system shall confirm a booking only after the required booking and payment conditions are satisfied.
+**Acceptance Criteria:**
+- Display booking summary.
+- Display ticket quantity and total price.
+- Display applicable taxes or additional charges.
+- Allow the user to select an available payment method.
+- Payment success must confirm the booking.
+- Payment failure must display an appropriate error.
+- A failed payment must not result in a confirmed booking.
 
-### FR-11: QR Code Generation
-The system shall generate a unique QR-based digital ticket for confirmed bookings.
+#### US-06: Receive Booking Confirmation
+**As a user**, I want to receive booking confirmation so that I have proof of my ticket reservation.
 
-### FR-12: Booking Status Tracking
-The system shall allow customers to retrieve and view their booking status.
+**Acceptance Criteria:**
+- Generate a unique booking ID.
+- Display booking confirmation.
+- Display ticket and seat details.
+- Display payment status.
+- Provide a digital ticket or booking reference.
 
-### FR-13: Multilingual Support
-The system shall provide multilingual interaction options for customers.
+#### US-07: AI Booking Assistance
+**As a user**, I want to interact with an AI assistant so that I can receive help finding and booking tickets.
 
-### FR-14: Voice Interaction
-The system should support voice-based interaction where implemented.
+**Acceptance Criteria:**
+- User can ask booking-related questions.
+- AI assistant understands basic natural-language queries.
+- Assistant provides relevant event or booking information.
+- Assistant guides users through the booking process.
+- AI must not claim a booking is successful without backend confirmation.
 
-### FR-15: Admin Analytics
-The system shall provide administrators with booking statistics, transaction reports and system performance information.
+#### US-08: View Booking History
+**As a user**, I want to view my previous bookings so that I can track my reservations.
 
-### FR-16: Offline Handling
-The system should handle temporary connectivity interruptions and support eligible request synchronization when connectivity returns.
+**Acceptance Criteria:**
+- Display previous bookings.
+- Display booking ID and date.
+- Display ticket details and booking status.
+- Show cancellation status where applicable.
 
-## 3. Non-Functional Requirements
+---
 
-Non-functional requirements describe the quality, performance and operational characteristics of the application.
+### 3. Seat-Selection Rules
 
-### NFR-01: Performance
-The application should respond to user requests within an acceptable time under normal operating conditions.
+1. Available seats must be displayed in green.
+2. Selected seats must be displayed in blue.
+3. Booked seats must be displayed in red or grey.
+4. Users cannot select already-booked seats.
+5. Users can select only available seats.
+6. The system must validate seat availability before confirming a reservation.
+7. Two users must not be able to successfully book the same seat.
+8. The total price must update whenever seats are selected or removed.
+9. Seat selection must be associated with a particular event, show, or trip.
+10. Temporary seat reservations must expire after a configured time if checkout is not completed.
 
-### NFR-02: Security
-The system must protect customer information and use secure payment processing practices.
+---
 
-### NFR-03: Reliability
-The system must maintain accurate booking information and handle failures without creating false confirmations.
+### 4. Booking Flow
 
-### NFR-04: Scalability
-The application should support increasing numbers of users and booking requests.
+The booking process follows these steps:
 
-### NFR-05: Usability
-The interface should be simple, intuitive and easy to understand.
+1. User opens the application.
+2. User searches for an event, movie, or travel ticket.
+3. System displays matching results.
+4. User selects an event or service.
+5. System displays ticket information and available seats.
+6. User selects preferred seats.
+7. System validates seat availability.
+8. User enters personal and contact details.
+9. System displays the booking summary.
+10. User proceeds to checkout.
+11. User completes payment.
+12. Backend verifies payment status.
+13. System confirms the booking.
+14. Digital ticket and booking ID are generated.
 
-### NFR-06: Accessibility
-The system should support readable layouts, clear instructions and accessible interactions.
+**Booking Status:**
+- Pending
+- Confirmed
+- Failed
+- Cancelled
+- Expired
 
-### NFR-07: Availability
-The application should remain accessible during expected operating periods and handle temporary service interruptions gracefully.
+---
 
-### NFR-08: Data Consistency
-The system must maintain accurate inventory and booking records, particularly during simultaneous reservations.
+### 5. Checkout Flow
 
-### NFR-09: Compatibility
-The application should work with commonly used web browsers and mobile devices.
+The checkout process must follow these stages:
 
-### NFR-10: Maintainability
-The application should use modular components to make debugging, maintenance and future enhancements easier.
+**Stage 1: Booking Summary**
+- Event or service details
+- Selected seats
+- Number of tickets
+- Ticket price
 
-## 4. System Constraints
+**Stage 2: Price Calculation**
+- Base ticket price
+- Taxes
+- Additional service charges
+- Final payable amount
 
-1. Payment integration will initially use a sandbox environment.
-2. Real-time ticket availability depends on backend inventory services.
-3. QR tickets must be associated with valid booking records.
-4. Offline functionality cannot guarantee live inventory or payment verification.
-5. AI-generated responses must not independently confirm bookings without backend verification.
+**Stage 3: Payment**
+- Select payment method.
+- Submit payment request.
+- Verify payment response.
 
-## 5. Acceptance Criteria
+**Stage 4: Confirmation**
+- Update booking status.
+- Confirm seat reservation.
+- Generate booking ID.
+- Display confirmation to the user.
 
-The system will satisfy the initial requirements when:
+**Important:** Payment failure must not generate a confirmed ticket.
 
-- Customers can interact with the AI assistant.
-- Ticket options and availability are displayed correctly.
-- Customers can submit booking requests.
-- Concurrent reservations do not cause overbooking.
-- Duplicate submissions are handled safely.
-- Payment success and failure scenarios are handled correctly.
-- Confirmed bookings generate unique QR tickets.
-- Booking status can be retrieved.
-- Administrators can access booking statistics.
+---
 
-## 6. Conclusion
+### 6. Expected API Behavior
 
-These functional and non-functional requirements establish the technical and operational expectations of the PS-07 AI-Powered Online Ticketing and Booking Assistant. They provide a common reference for all team members during implementation and testing.
+The following API endpoints are proposed for discussion and confirmation with Members 2 and 3.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | /api/events | Retrieve available events |
+| GET | /api/events/{id} | Retrieve event details |
+| GET | /api/events/{id}/seats | Retrieve seat availability |
+| POST | /api/bookings | Create a booking |
+| GET | /api/bookings/{id} | Retrieve booking details |
+| POST | /api/payments | Initiate payment |
+| GET | /api/bookings/{id}/status | Check booking status |
+
+**Expected API Response:**
+
+Successful response:
+- HTTP 200 or 201
+- Success status
+- Booking ID where applicable
+- Relevant booking details
+
+Validation error:
+- HTTP 400
+- Error message explaining invalid input
+
+Unauthorized request:
+- HTTP 401
+- Authentication error
+
+Resource not found:
+- HTTP 404
+- Appropriate error message
+
+Seat conflict:
+- HTTP 409
+- Message indicating that the selected seat is no longer available
+
+Server error:
+- HTTP 500
+- Appropriate server error message
+
+**Note:** These endpoints and response codes are proposed contracts. Final implementation details must be confirmed with the backend and integration team.
+
+---
+
+### 7. Coordination with Team Members
+
+Member 1 must coordinate with Members 2 and 3 to confirm:
+
+1. API endpoint names and HTTP methods.
+2. Request and response JSON formats.
+3. Event and seat data structures.
+4. Booking ID generation.
+5. Seat availability validation.
+6. Payment integration requirements.
+7. Error handling and response codes.
+8. Authentication requirements.
+
+All members must agree on the API contract before integration.
+
+---
+
+### 8. Non-Functional Requirements
+
+- System should provide a user-friendly interface.
+- Booking operations should be reliable.
+- User information must be protected.
+- Payment information must be handled securely.
+- Seat availability should be updated accurately.
+- System should prevent duplicate bookings.
+- API responses should be consistent.
+- System should handle invalid requests gracefully.
+
+---
+
+### 9. Final Deliverable
+
+The Member 1 M2 deliverable includes:
+
+- Documented user stories.
+- Clearly defined acceptance criteria.
+- Seat-selection rules.
+- Booking and checkout workflow.
+- Proposed API contract.
+- Coordination requirements for backend integration.
+
+**Project Status:** Requirements drafted and awaiting team review and approval.
